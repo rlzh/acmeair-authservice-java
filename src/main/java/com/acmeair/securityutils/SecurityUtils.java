@@ -61,15 +61,34 @@ public class SecurityUtils {
     
     System.out.println("SECURE_USER_CALLS: " + secureUserCalls);
     System.out.println("SECURE_SERVICE_CALLS: " + secureServiceCalls);
-    
-    // Cache MAC to avoid cost of getInstance/init.
-    try {
-      macCached = Mac.getInstance(HMAC_ALGORITHM);
-      macCached.init(new SecretKeySpec(secretKey.getBytes(UTF8), HMAC_ALGORITHM));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
+    
+  private static final ThreadLocal<MessageDigest> localSHA256 =
+      new ThreadLocal<MessageDigest>() {
+    @Override protected MessageDigest initialValue() {
+      try {
+        return MessageDigest.getInstance(SHA_256);
+      } catch (NoSuchAlgorithmException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        return null;
+      }
+    }
+  };
+    
+  private static final ThreadLocal<Mac> localMac =
+      new ThreadLocal<Mac>() {
+    @Override protected Mac initialValue() {
+      Mac toReturn = null;
+      try {
+        toReturn = Mac.getInstance(HMAC_ALGORITHM);
+        toReturn.init(new SecretKeySpec(secretKey.getBytes(UTF8), HMAC_ALGORITHM));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      return toReturn;
+    }
+    };
   
   /**
    *  Generate simple JWT with login as the Subject. 
@@ -100,8 +119,8 @@ public class SecurityUtils {
    * Build Hash of data.
    */
   public String buildHash(String data)
-          throws NoSuchAlgorithmException, UnsupportedEncodingException {
-    MessageDigest md = MessageDigest.getInstance(SHA_256);
+      throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    MessageDigest md = localSHA256.get();
     md.update(data.getBytes(UTF8));
     byte[] digest = md.digest();
     return Base64.getEncoder().encodeToString(digest);
@@ -111,28 +130,21 @@ public class SecurityUtils {
    * Build signature of all this junk.
    */
   public String buildHmac(String method, String baseUri, String userId, String dateString, 
-          String sigBody)
-            throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-        
+      String sigBody)
+          throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+
     List<String> toHash = new ArrayList<String>();
     toHash.add(method);
     toHash.add(baseUri);
     toHash.add(userId);
     toHash.add(dateString);
     toHash.add(sigBody);   
-  
-    Mac mac = null;
-    try {
-      mac = (Mac) macCached.clone();
-    } catch (CloneNotSupportedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
 
+    Mac mac = localMac.get();
     for (String s: toHash) {
       mac.update(s.getBytes(UTF8));
     }
-        
+
     return Base64.getEncoder().encodeToString(mac.doFinal());
   }
 }

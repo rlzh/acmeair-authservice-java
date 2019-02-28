@@ -29,8 +29,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.microprofile.faulttolerance.exceptions.CircuitBreakerOpenException;
-import org.eclipse.microprofile.faulttolerance.exceptions.TimeoutException;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import com.acmeair.faultTolerance.CustomerClientConnection;
@@ -92,7 +90,7 @@ public class AuthServiceRest {
   }
     
   private boolean validateCustomer(String login, String password) 
-      throws TimeoutException, CircuitBreakerOpenException, InterruptedException, 
+      throws InterruptedException, 
       ExecutionException, java.util.concurrent.TimeoutException {
     return customerClientConection.connect(login, password);
   }
