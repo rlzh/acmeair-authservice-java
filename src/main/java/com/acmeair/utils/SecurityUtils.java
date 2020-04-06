@@ -107,7 +107,7 @@ public class SecurityUtils {
       JsonWebSignature jws = new JsonWebSignature();
       jws.setPayload(claims.toJson());
       jws.setKey(privateKey);      
-      jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
+      jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.HMAC_SHA256);
       jws.setHeader("typ", "JWT");
 
       token = jws.getCompactSerialization();
