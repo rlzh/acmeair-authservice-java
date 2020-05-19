@@ -1,0 +1,5 @@
+id: "20200515162947.06039500"
+project-name: acmeair-authservice-java
+#stack: docker.io/jdmcclur/java-openliberty:0.2.12
+stack: dev.local/appsody/acmeair-stack:0.1.0
+

@@ -1,0 +1,84 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  annotations:
+    architecture: x86_64
+    authoritative-source-url: registry.access.redhat.com
+    build-date: 2020-03-31T14:54:13.907559
+    commit.image.appsody.dev/date: Fri May 15 16:19:24 2020 -0500
+    commit.image.appsody.dev/message: update Dockerfiles
+    commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
+    commit.stack.appsody.dev/date: Mon May 18 21:30:02 2020 -0500
+    commit.stack.appsody.dev/message: initial commit
+    description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
+      Maven
+    distribution-scope: public
+    image.opencontainers.org/created: "2020-05-18T21:48:31-05:00"
+    image.opencontainers.org/documentation: https://github.com/blueperf/acmeair-authservice-java
+    image.opencontainers.org/revision: f4cc107b69994892037f84caf1b905b99e3e3043-modified
+    image.opencontainers.org/source: https://github.com/blueperf/acmeair-authservice-java/tree/master
+    image.opencontainers.org/url: https://github.com/blueperf/acmeair-authservice-java
+    k8s.io/description: The Universal Base Image is designed and engineered to be
+      the base layer for all of your containerized applications, middleware and utilities.
+      This base image is freely redistributable, but Red Hat only supports Red Hat
+      technologies through subscriptions for Red Hat products. This image is maintained
+      by Red Hat and updated regularly.
+    k8s.io/display-name: Red Hat Universal Base Image 8
+    maintainer: Red Hat, Inc.
+    name: acmeair-stack
+    openshift.io/expose-services: ""
+    openshift.io/tags: base rhel8
+    redhat.com/build-host: cpt-1007.osbs.prod.upshift.rdu2.redhat.com
+    redhat.com/component: ubi8-container
+    redhat.com/license_terms: https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI
+    release: "408"
+    stack.appsody.dev/authors: Joe <jdmcclur>
+    stack.appsody.dev/configured: jdmcclur/acmeair-stack:0.1.0
+    stack.appsody.dev/created: "2020-05-18T21:37:33-05:00"
+    stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
+      & OpenJ9 using Maven
+    stack.appsody.dev/digest: sha256:06a685558378947f6153002e22d876a67eb9820c1da829cb1b41acfaeb2f24c5
+    stack.appsody.dev/documentation: https://github.com/jdmcclur/acmeair-stack/tree/master/README.md
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: 72455dff8f7dceb7af64e49de2c43f405fd2421c-modified
+    stack.appsody.dev/source: https://github.com/jdmcclur/acmeair-stack/tree/master/image
+    stack.appsody.dev/tag: jdmcclur/acmeair-stack:0.1.0
+    stack.appsody.dev/title: Open Liberty
+    stack.appsody.dev/url: https://github.com/jdmcclur/acmeair-stack
+    summary: Open Liberty
+    url: https://access.redhat.com/containers/#/registry.access.redhat.com/ubi8/images/8.1-408
+    vcs-ref: 26f36bfa3e3a04c8c866b250924c1aefc34f01c9
+    vcs-type: git
+    vendor: Open Liberty
+    version: 0.1.0
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: acmeair-authservice-java
+    stack.appsody.dev/id: acmeair-stack
+    stack.appsody.dev/version: 0.1.0
+  name: acmeair-authservice-java
+spec:
+  applicationImage: acmeair/acmeair-authservice-java
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+  version: 1.0.0
