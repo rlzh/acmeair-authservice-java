@@ -5,18 +5,18 @@ metadata:
     architecture: x86_64
     authoritative-source-url: registry.access.redhat.com
     build-date: 2020-03-31T14:54:13.907559
-    commit.image.appsody.dev/date: Fri May 15 16:19:24 2020 -0500
-    commit.image.appsody.dev/message: update Dockerfiles
+    commit.image.appsody.dev/date: Mon May 18 21:53:18 2020 -0500
+    commit.image.appsody.dev/message: appsody test branch
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Mon May 18 21:30:02 2020 -0500
     commit.stack.appsody.dev/message: initial commit
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-05-18T21:48:31-05:00"
+    image.opencontainers.org/created: "2020-05-19T08:34:44-05:00"
     image.opencontainers.org/documentation: https://github.com/blueperf/acmeair-authservice-java
-    image.opencontainers.org/revision: f4cc107b69994892037f84caf1b905b99e3e3043-modified
-    image.opencontainers.org/source: https://github.com/blueperf/acmeair-authservice-java/tree/master
+    image.opencontainers.org/revision: 2d10ac837f2d2e7524deeab75dd868d309f0bafa-modified
+    image.opencontainers.org/source: https://github.com/blueperf/acmeair-authservice-java/tree/appsody
     image.opencontainers.org/url: https://github.com/blueperf/acmeair-authservice-java
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
@@ -33,7 +33,7 @@ metadata:
     redhat.com/license_terms: https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI
     release: "408"
     stack.appsody.dev/authors: Joe <jdmcclur>
-    stack.appsody.dev/configured: jdmcclur/acmeair-stack:0.1.0
+    stack.appsody.dev/configured: dev.local/appsody/acmeair-stack:0.1.0
     stack.appsody.dev/created: "2020-05-18T21:37:33-05:00"
     stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
       & OpenJ9 using Maven
@@ -42,7 +42,7 @@ metadata:
     stack.appsody.dev/licenses: Apache-2.0
     stack.appsody.dev/revision: 72455dff8f7dceb7af64e49de2c43f405fd2421c-modified
     stack.appsody.dev/source: https://github.com/jdmcclur/acmeair-stack/tree/master/image
-    stack.appsody.dev/tag: jdmcclur/acmeair-stack:0.1.0
+    stack.appsody.dev/tag: dev.local/appsody/acmeair-stack:0.1.0
     stack.appsody.dev/title: Open Liberty
     stack.appsody.dev/url: https://github.com/jdmcclur/acmeair-stack
     summary: Open Liberty
@@ -58,7 +58,7 @@ metadata:
     stack.appsody.dev/version: 0.1.0
   name: acmeair-authservice-java
 spec:
-  applicationImage: acmeair/acmeair-authservice-java
+  applicationImage: dev.local/acmeair-authservice-java
   createKnativeService: false
   expose: true
   livenessProbe:
