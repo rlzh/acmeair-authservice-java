@@ -32,6 +32,13 @@ spec:
           value: "-DcustomerClient/mp-rest/url=http://acmeair-customer-service:9080/customer"
         - name: SECURE_SERVICE_CALLS
           value: 'true'
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
         readinessProbe:
           httpGet:
             path: /health
